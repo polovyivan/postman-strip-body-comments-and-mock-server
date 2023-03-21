@@ -1,0 +1,60 @@
+{
+	"info": {
+		"_postman_id": "36996f9d-b7c6-44d2-9a3e-a81e12e5a7fa",
+		"name": "Postman Comments",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "9825253"
+	},
+	"item": [
+		{
+			"name": "strip-comments",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"",
+							"console.log('Running pre-request script...');",
+							"",
+							"const stripComments = jsonBody => jsonBody.replace(/\\\\\"|\"(?:\\\\\"|[^\"])*\"|(\\/\\/.*|\\/\\*[\\s\\S]*?\\*\\/)/g, (m, g) => g ? \"\" : m);",
+							"",
+							"json = stripComments(pm.request.body.toString());",
+							"",
+							"console.log(json);",
+							"",
+							"pm.request.body=json;",
+							"",
+							"console.log('Pre-request script is executed!');"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{ /*\n   This is a multi-line\n   comment.\n   */\n    \"key\": \"value\" // This is a single-line comment.\n}\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://postman-echo.com/post",
+					"protocol": "http",
+					"host": [
+						"postman-echo",
+						"com"
+					],
+					"path": [
+						"post"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
